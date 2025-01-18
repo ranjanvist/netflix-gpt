@@ -1,12 +1,17 @@
 import Header from "./Header";
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import usePopularMovies from "../hooks/usePopularMovies";
+import MainContainer from "./mainContainer";
+import SecondaryContainer from "./secondaryContainer";
 
 const Browse = () => {
+  useNowPlayingMovies();
+  usePopularMovies();
   return (
     <div>
       <Header />
-      <div className="mt-[56px]">
-        <h1>Browse Page</h1>
-      </div>
+      <MainContainer />
+      <SecondaryContainer />
     </div>
   );
 };

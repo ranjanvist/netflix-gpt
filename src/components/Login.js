@@ -7,10 +7,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const fName = useRef("");
@@ -24,7 +22,6 @@ const Login = () => {
     const message = checkValidateData(
       email?.current?.value,
       password?.current?.value
-      // fName?.current?.value
     );
     setErrorMessage(message);
     if (message) return;
@@ -45,13 +42,12 @@ const Login = () => {
           })
             .then(() => {
               // Profile updated!
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
               // ...
+              setErrorMessage(error.message);
             });
-          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -68,8 +64,10 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
+          updateProfile(user, {
+            displayName: fName?.current?.value,
+            photoURL: "https://avatars.githubusercontent.com/u/35452218",
+          });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -84,11 +82,11 @@ const Login = () => {
       <img
         src="https://assets.nflxext.com/ffe/siteui/vlv3/4690cab8-243a-4552-baef-1fb415632f74/web/IN-en-20241118-TRIFECTA-perspective_0b813abc-8365-4a43-a9d8-14c06e84c9f3_large.jpg"
         alt=""
-        className="h-[100vh]"
+        className="h-[100vh] w-full"
       />
       <div
         className="bg-[rgba(0,0,0,0.8)]
-       px-8 py-4 w-[30%] mx-auto rounded-md absolute left-0 right-0 top-[20%]"
+       px-8 py-4 w-[25%] mx-auto rounded-md absolute left-0 right-0 top-[20%]"
       >
         <h2 className="font-semibold text-2xl text-white mb-6">
           {isSignInForm ? "Sign In" : "Sign Up"}
