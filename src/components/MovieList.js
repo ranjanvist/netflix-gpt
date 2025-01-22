@@ -1,6 +1,9 @@
 import MoviesCard from "./MoviesCard";
 
 const MovieList = ({ title, movies }) => {
+  if (!movies) {
+    return;
+  }
   return (
     <div className="pt-12 px-5 bg-black text-white">
       <h1 className="text-3xl font-semibold mb-6">{title}</h1>

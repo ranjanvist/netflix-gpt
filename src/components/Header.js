@@ -34,7 +34,7 @@ const Header = () => {
           addUser({
             uid: uid,
             email: email,
-            displayName: displayName,
+            displayName: displayName || "Test",
             // photoURL: photoURL,
           })
         );
@@ -48,6 +48,9 @@ const Header = () => {
     });
     return () => unsubscribe();
   }, []);
+  const handleSearch = () => {
+    
+  };
   return (
     <div className="px-8 py-2 absolute top-0 left-0 w-screen bg-gradient-to-br from-black z-10 h-[70px] p-6">
       <div className="flex items-center justify-between">
@@ -56,6 +59,7 @@ const Header = () => {
           alt="tet"
           className="w-[182px] h-[56px]"
         />
+        <button className="px-2 py-2 bg-purple-800 text-white" onClick={handleSearch}>Search Here</button>
         {user && (
           <div className="relative">
             {" "}
